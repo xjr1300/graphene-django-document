@@ -24,7 +24,7 @@ pip install django graphene_django
 
 # 1つのアプリを持つ新しいプロジェクトをカレントディレクトリに作成
 django-admin startproject cookbook .  # 末尾の"."文字に注意
-cd cookbook
+# cd cookbook
 django-admin startapp ingredients
 ```
 
@@ -41,7 +41,7 @@ python manage.py migrate
 これらのモデルで開始しましょう。
 
 ```python
-# ingredients/models.py
+# cookbook/ingredients/models.py
 from django.db import models
 
 
