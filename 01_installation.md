@@ -1,5 +1,12 @@
 # インストール
 
+<https://docs.graphene-python.org/projects/django/en/latest/installation/#>
+
+- [インストール](#インストール)
+  - [要求事項](#要求事項)
+  - [インストール](#インストール-1)
+  - [CSRFの無効化](#csrfの無効化)
+
 Graphene-Djangoは、インストールと準備に数分かかります。
 
 ## 要求事項

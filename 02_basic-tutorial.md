@@ -1,5 +1,19 @@
 # 基本的なチュートリアル
 
+<https://docs.graphene-python.org/projects/django/en/latest/tutorial-plain/#>
+
+- [基本的なチュートリアル](#基本的なチュートリアル)
+  - [Djangoプロジェクトの準備](#djangoプロジェクトの準備)
+  - [モデルの定義](#モデルの定義)
+  - [いくつかのテストデータのロード](#いくつかのテストデータのロード)
+  - [こんにちはGraphQL - スキーマとオブジェクトタイプ](#こんにちはgraphql---スキーマとオブジェクトタイプ)
+  - [これまでのすべてをテスト](#これまでのすべてをテスト)
+    - [設定の更新](#設定の更新)
+    - [GraphQLとGraphiQLビューの作成](#graphqlとgraphiqlビューの作成)
+    - [GraphQLスキーマのテスト](#graphqlスキーマのテスト)
+    - [関連を得る](#関連を得る)
+  - [まとめ](#まとめ)
+
 Graphene-Djangoは、容易にDjangoと機能するために設計された、いくつかの追加的な機能があります。
 このチュートリアルで重点的に取り組むことは、DjangoのORMからGrapheneオブジェクトタイプへ接続する方法の良い理解を与えることです。
 
@@ -166,7 +180,7 @@ class Query(graphene.ObjectType):
 schema = graphene.Schema(query=Query)
 ```
 
-あなたの一番上の階層の`urls.py`ファイルのようにこれを考えれます。
+あなたの最上位の`urls.py`ファイルのようにこれを捉える事ができます。
 
 ## これまでのすべてをテスト
 

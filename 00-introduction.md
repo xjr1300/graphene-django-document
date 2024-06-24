@@ -1,5 +1,10 @@
 # Graphene-Django
 
+<https://docs.graphene-python.org/projects/django/en/latest/>
+
+- [Graphene-Django](#graphene-django)
+  - [主要なコンテンツ](#主要なコンテンツ)
+
 Graphene-Djangoのドキュメントにようこそ。
 
 Graphene-Djangoは、[Graphene](https://docs.graphene-python.org/en/latest/)の上に構築されました。
