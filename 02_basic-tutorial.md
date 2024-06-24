@@ -39,6 +39,8 @@ pip install django graphene_django
 # 1つのアプリを持つ新しいプロジェクトをカレントディレクトリに作成
 django-admin startproject cookbook .  # 末尾の"."文字に注意
 # cd cookbook
+# チュートリアルでは、cookbookディレクトリ内にアプリを作成しているが、
+# プロジェクトディレクトリの下にアプリを作成
 django-admin startapp ingredients
 ```
 
@@ -55,7 +57,7 @@ python manage.py migrate
 これらのモデルで開始しましょう。
 
 ```python
-# cookbook/ingredients/models.py
+# ingredients/models.py
 from django.db import models
 
 
@@ -84,7 +86,7 @@ class Ingredient(models.Model):
 INSTALLED_APPS = [
     ...
     # ingredientsアプリをインストール
-    "cookbook.ingredients",
+    "ingredients",
 ]
 ```
 
@@ -98,7 +100,7 @@ python manage.py migrate
 ## いくつかのテストデータのロード
 
 現在、いくつかのテストデータをロードする良い時です。
-最も簡単な選択肢は、[ingredients.jsonフィクスチャ](https://raw.githubusercontent.com/graphql-python/graphene-django/master/examples/cookbook/cookbook/ingredients/fixtures/ingredients.json)をダウンロードして、`cookbook/ingredients/fixtures/ingredients.json`に配置します。
+最も簡単な選択肢は、[ingredients.jsonフィクスチャ](https://raw.githubusercontent.com/graphql-python/graphene-django/master/examples/cookbook/cookbook/ingredients/fixtures/ingredients.json)をダウンロードして、`ingredients/fixtures/ingredients.json`に配置します。
 その後、次を実行できます。
 
 ```sh
@@ -117,7 +119,7 @@ Installed 6 object(s) from 1 fixture(s)
 ```python
 from django.contrib import admin
 
-from cookbook.ingredients.models import Category, Ingredient
+from ingredients.models import Category, Ingredient
 
 admin.site.register(Category)
 admin.site.register(Ingredient)
@@ -146,7 +148,7 @@ DjangoモデルのそれぞれのGraphQLタイプを作成するために、Djan
 import graphene
 from graphene_django import DjangoObjectType
 
-from cookbook.ingredients.models import Category, Ingredient
+from ingredients.models import Category, Ingredient
 
 
 class CategoryType(DjangoObjectType):
@@ -200,7 +202,7 @@ INSTALLED_APPS = [
     ...
     "django.contrib.staticfiles",
     "graphene_django",
-    "graphene_django",
+    ...
 ]
 ```
 
@@ -209,9 +211,11 @@ INSTALLED_APPS = [
 ```python
 # cookbook/settings.py
 GRAPHENE = {
-    "SCHEMA": "cookbook.schema.schema",
+    "SCHEMA": "schema.schema",
 }
 ```
+
+> `"schema.schema"`は、プロジェクトディレクトリの`schema`モジュール(`schema.py`ファイル)内の`schema`オブジェクトを指している。
 
 代わりに、後で説明するように、URL定義で使用するスキーマを指定することもできます。
 
@@ -247,7 +251,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from graphene_django.views import GraphQLView
 
-from cookbook.schema import schema
+from schema import schema
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -313,12 +317,12 @@ query {
 おめでとうございます。
 機能するGraphQLサーバーを作成しました。
 
-注意事項: Grapheneは、JavaScriptのクライアントとの良い互換性を持つように、すべてのフィールドの名前を[自動でキャメルケース](http://docs.graphene-python.org/en/latest/types/schema/#auto-camelcase-field-names)にします。
+注意事項: Grapheneは、JavaScriptのクライアントと良い互換性を持つように、すべてのフィールドの名前を[自動でキャメルケース](http://docs.graphene-python.org/en/latest/types/schema/#auto-camelcase-field-names)にします。
 
 ### 関連を得る
 
-現在のスキーマを使用することで、関連をクエリできます。
-これは、GraphQLが本当に強力である理由です。
+現在のスキーマを使用することで、関連も問い合わせできます。
+これが、GraphQLを本当に強力にします。
 
 例えば、特定のカテゴリを得て、そのカテゴリに含まれるすべての材料(ingredients)をリストしたいかもしれません。
 
@@ -337,7 +341,7 @@ query {
 }
 ```
 
-これは次の結果が得られます（フィクスチャを使用している場合）。
+これは、フィクスチャーを使用している場合、次の結果を与えます。
 
 ```json
 {
@@ -418,7 +422,7 @@ query {
 
 ## まとめ
 
-これまで確認した通り、GraphQLはとても強力で、Djangoのモデルとの統合は、素早く動作するサーバーを開始できるようにします。
+これまで確認した通り、GraphQLはとても強力で、Djangoのモデルとの統合は、機能するサーバーを素早く開始できるようにします。
 
 もし、`django-filter`や自動ページネーションのようなものを実際に実行したい場合は、[Relayチュートリアル](https://docs.graphene-python.org/projects/django/en/latest/tutorial-relay/#relay-tutorial)に進むべきです。
 
